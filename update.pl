@@ -25,6 +25,7 @@ if (open DB, "wget -O- 'https://code.wireshark.org/review/gitweb?p=wireshark.git
 			$prefix =~ s/[:-]//g;
 			$mask = length($prefix) * 4 unless defined $mask;
 
+			$prefix .= ('0' x (12 - length($prefix)));
 			$prefix =~ s/^0+([0-9A-F])/$1/g;
 
 			push @output,
