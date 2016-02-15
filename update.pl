@@ -23,15 +23,20 @@ if (open DB, "wget -O- 'https://code.wireshark.org/review/gitweb?p=wireshark.git
 			my ($prefix, $mask, $company, $comment) = ($1, $2, $3, $4);
 
 			$prefix =~ s/[:-]//g;
-			$mask = length($prefix) * 4 unless defined $mask;
+			$mask = defined($mask) ? int($mask) : length($prefix) * 4;
 
 			$prefix .= ('0' x (12 - length($prefix)));
 			$prefix =~ s/^0+([0-9A-F])/$1/g;
 
+			my $name = $comment || $company;
+			$name =~ s/\s+/ /g;
+			$name =~ s/^ //;
+			$name =~ s/ $//;
+
 			push @output,
 				$prefix,
 				$mask,
-				$comment || $company;
+				$name;
 		}			
 	}
 
