@@ -17,7 +17,10 @@ if (open DB, "wget -O- 'https://code.wireshark.org/review/gitweb?p=wireshark.git
 				([0-9A-F]{2}(?:[:-][0-9A-F]{2}){2,5})
 				(?:/([0-9]{1,2}))?
 				\t (\S+)
-				(?: \s+ \# \s (.+))?
+				(?:
+					\s+ (.+?)
+					(?: \# .+ )?
+				)?
 			$
 		!x) {
 			my ($prefix, $mask, $company, $comment) = ($1, $2, $3, $4);
